@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+     
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Вступайте в Советский Союз!</legend>
+
+        <form id="inpt" onsubmit="return output()">
+            <label for="name">Имя(Name):</label><br>
+            <input type="text" class="name" id="name" name="name" onblur="function1(this)" required>
+            <br>
+
+            <label for="userName">имя пользователя(Username):</label><br/>
+            <input type="text" class="name" id="userName" name="userName" onblur="function1(this)" required>
+            <br>
+
+            <label for="password">пароль(Password):</label><br>
+            <input type="password" class="name"  id="password" name="password" onblur="function1(this)" required>
+            <br>
+
+            Пол (Gender):  <br>
+            <select name="gender" id="gender" class="name2" onblur="function1(this)" required>
+                <option value="select">Select a Gender</option>
+                <option value="male">
+                    мужской(Male)</option>
+                <option value="female"> 
+                    женский(Female)</option>
+                <option value="prefernot">Предпочитаю не говорить(Prefer not to say)</option>
+            </select>
+            <br>
+
+            <label for="email">Адрес электронной почты(Email Address):</label><br/>
+            <input type="email" class="name"  id="email" name="email" onblur="function1(this)" required>
+            <br>
+
+            <label for="address">Адрес(Address):</label><br>
+            <textarea id="addy" class="name" name="addy" rows="2" cols="50" onblur="function1(this)" required></textarea>
+            <br>
+
+            <label for="interests">интересы(Interests):</label><br>
+            <textarea id="interests" class="name" name="interests" rows="4" cols="50" onblur="function1(this)" required></textarea>
+            <br>
+
+            <input type="submit" value="Submit Form" id="submitButton" disabled>
+            <input type="button" value="Reset" onclick="resetForm()">
+        </form>
+    </fieldset>
+
+    <fieldset id="outputFieldset">
+        <legend>Your information:</legend>
+        <div id="output"></div>
+    </fieldset>
+
+    <audio autoplay loop>
+        <source src="media/USSR ANTHEM.mp3">
+    </audio>
+
+    <script>
+        function function1(input) {
+            if (input.value.trim() === '' || input.value.trim() === 'select') {
+                input.style.borderColor = 'rgb(110, 0, 0)';
+            } else {
+                input.style.borderColor = 'green';
+            }
+            checkFormCompletion();
+        }
+
+        function checkFormCompletion() {
+            var inputs = document.getElementsByClassName('name');
+            var selects = document.getElementsByClassName('name2');
+            var allCompleted = true;
+
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].hasAttribute('required') && (inputs[i].value.trim() === '' || inputs[i].value.trim() === 'select')) {
+                    allCompleted = false;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < selects.length; i++) {
+                if (selects[i].hasAttribute('required') && (selects[i].value.trim() === '' || selects[i].value.trim() === 'select')) {
+                    allCompleted = false;
+                    break;
+                }
+            }
+
+            document.getElementById('submitButton').disabled = !allCompleted;
+        }
+
+        function output() {
+            var name = document.getElementById("name").value;
+            var user = document.getElementById("userName").value;
+            var pass = document.getElementById("password").value;
+            var gender = document.getElementById("gender").value;
+            var email = document.getElementById("email").value;
+            var addy = document.getElementById("addy").value;
+            var inter = document.getElementById("interests").value;
+
+            var finalOutput = "Имя(Name): " + name + "<br> имя пользователя(Username): " + user + "<br> пароль(Password): " + pass + "<br> Пол (Gender): " + gender + "<br> Адрес электронной почты(Email Address): " + email + "<br> Адрес(Address): " + addy + "<br> интересы(Interests): " + inter + "<br> WELCOME TO THE SOVIET ARMED FORCES,COMRADE";
+            document.getElementById("output").innerHTML = finalOutput;
+            return false; 
+        }
+
+        function resetForm() {
+            document.getElementById("inpt").reset(); 
+            document.getElementById("output").innerHTML = ''; 
+            checkFormCompletion(); 
+        }
+    </script>
+</body>
+</html>
+
+
